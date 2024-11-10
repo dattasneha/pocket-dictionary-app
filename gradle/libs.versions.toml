@@ -8,7 +8,7 @@ espressoCore = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
 
-compose = "1.7.5" # Replace with your specific Compose version
+compose = "1.7.5"
 lifecycle-runtime-ktx = "2.8.7"
 activity-compose = "1.9.3"
 lifecycle-viewmodel-compose = "2.8.7"
