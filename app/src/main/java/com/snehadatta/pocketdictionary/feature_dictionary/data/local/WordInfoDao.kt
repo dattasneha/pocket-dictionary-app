@@ -1,6 +1,5 @@
 package com.snehadatta.pocketdictionary.feature_dictionary.data.local
 
-import android.provider.UserDictionary.Words
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy

@@ -2,7 +2,7 @@ package com.snehadatta.pocketdictionary.feature_dictionary.data.remote.dto
 
 
 import com.google.gson.annotations.SerializedName
-import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.WordInfo
+import com.snehadatta.pocketdictionary.feature_dictionary.data.local.entities.WordInfoEntity
 
 data class WordInfoDto(
     @SerializedName("license")
@@ -14,15 +14,15 @@ data class WordInfoDto(
     @SerializedName("phonetics")
     val phoneticDtos: List<PhoneticDto>,
     @SerializedName("sourceUrls")
-    val sourceUrls: List<String>,
+    val sourceUrl: List<String>,
     @SerializedName("word")
     val word: String
 ) {
-    fun toWordInfo(): WordInfo {
-        return WordInfo (
+    fun toWordInfoEntity(): WordInfoEntity {
+        return WordInfoEntity (
             meaning = meaningDtos.map { it.toMeaning() },
             phonetic = phonetic,
-            sourceUrls = sourceUrls,
+            sourceUrl = sourceUrl,
             word = word
         )
     }
