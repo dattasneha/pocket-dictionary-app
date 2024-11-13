@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
+import com.snehadatta.pocketdictionary.feature_dictionary.data.local.Converters
 import com.snehadatta.pocketdictionary.feature_dictionary.data.local.WordInfoDao
 import com.snehadatta.pocketdictionary.feature_dictionary.data.local.WordInfoDatabase
 import com.snehadatta.pocketdictionary.feature_dictionary.data.remote.DictionaryApi
@@ -43,7 +44,7 @@ object WordInfoModule {
     fun provideGetWordInfoDatabase(app: Application):WordInfoDatabase {
         return Room.databaseBuilder(
             app, WordInfoDatabase::class.java, "word_db"
-        ).addTypeConverter(GsonParser(Gson()))
+        ).addTypeConverter(Converters(GsonParser(Gson())))
             .build()
     }
 

@@ -27,4 +27,20 @@ class Converters(
         )?: "[]"
     }
 
+    @TypeConverter
+    fun fromSourceUrlJson(json: String):List<String> {
+        return jsonParser.fromJson<ArrayList<String>>(
+            json,
+            object : TypeToken<ArrayList<String>>(){}.type
+        )?: emptyList()
+    }
+
+    @TypeConverter
+    fun toSourceUrlJson(sourceUrl:List<String>):String {
+        return jsonParser.toJson(
+            sourceUrl,
+            object : TypeToken<ArrayList<String>>(){}.type
+        )?: "[]"
+    }
+
 }
