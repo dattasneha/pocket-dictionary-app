@@ -15,8 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PocketDictionary"
         tools:targetApi="31">
+
         <activity
-            android:name=".feature_dictionary.MainActivity"
+            android:name=".feature_dictionary.SearchActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

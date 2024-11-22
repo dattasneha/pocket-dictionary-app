@@ -1,8 +1,8 @@
 package com.snehadatta.pocketdictionary.feature_dictionary.data.repository
 
-import android.net.http.HttpException
 import android.os.Build
 import androidx.annotation.RequiresExtension
+import com.google.gson.JsonParseException
 import com.snehadatta.pocketdictionary.core.util.Resource
 import com.snehadatta.pocketdictionary.feature_dictionary.data.local.WordInfoDao
 import com.snehadatta.pocketdictionary.feature_dictionary.data.remote.DictionaryApi
@@ -10,6 +10,7 @@ import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.WordInfo
 import com.snehadatta.pocketdictionary.feature_dictionary.domain.repository.WordInfoRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.HttpException
 import java.io.IOException
 
 class WordInfoRepositoryImpl(

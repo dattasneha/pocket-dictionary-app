@@ -8,7 +8,7 @@ import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.WordInfo
 @Entity
 data class WordInfoEntity (
     val word : String,
-    val phonetic: String,
+    val phonetic: String?,
     val sourceUrl: List<String>,
     val meaning: List<Meaning>,
     @PrimaryKey val id: Int? = null
@@ -16,7 +16,7 @@ data class WordInfoEntity (
     fun toWordInfo(): WordInfo {
         return WordInfo(
             meaning = meaning,
-            phonetic = phonetic,
+            phonetic = phonetic ?: "",
             sourceUrls = sourceUrl,
             word = word
         )
