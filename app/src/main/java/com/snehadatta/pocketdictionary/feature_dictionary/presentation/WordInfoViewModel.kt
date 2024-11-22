@@ -1,4 +1,4 @@
-package com.snehadatta.pocketdictionary.feature_dictionary.domain.presentation
+package com.snehadatta.pocketdictionary.feature_dictionary.presentation
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -52,9 +52,11 @@ class WordInfoViewModel @Inject constructor(
                                 wordInfoItems = result.data ?: emptyList(),
                                 isLoading = false
                             )
-                            _eventFlow.emit(UIEvent.ShowSnackbar(
-                                result.message ?: "Unknown error"
-                            ))
+                            _eventFlow.emit(
+                                UIEvent.ShowSnackbar(
+                                    result.message ?: "Unknown error"
+                                )
+                            )
                         }
                         is Resource.Loading -> {
                             _state.value = state.value.copy(

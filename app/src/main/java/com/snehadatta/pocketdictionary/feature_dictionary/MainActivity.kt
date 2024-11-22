@@ -17,7 +17,7 @@ import androidx.room.TypeConverter
 import com.google.gson.reflect.TypeToken
 import com.plcoding.dictionary.feature_dictionary.presentation.WordInfoItem
 import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.Meaning
-import com.snehadatta.pocketdictionary.feature_dictionary.domain.presentation.WordInfoViewModel
+import com.snehadatta.pocketdictionary.feature_dictionary.presentation.WordInfoViewModel
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.PocketDictionaryTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
