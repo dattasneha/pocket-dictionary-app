@@ -9,11 +9,18 @@ data class MeaningDto(
     val definitionDtos: List<DefinitionDto>,
     @SerializedName("partOfSpeech")
     val partOfSpeech: String,
+    @SerializedName("synonyms")
+    val synonyms: List<String>,
+    @SerializedName("antonyms")
+    val antonyms: List<String>
+
 ) {
     fun toMeaning(): Meaning {
         return Meaning(
             definition = definitionDtos.map { it.toDefinition() },
-            partOfSpeech = partOfSpeech
+            partOfSpeech = partOfSpeech,
+            synonyms = synonyms,
+            antonyms = antonyms
         )
     }
 }
