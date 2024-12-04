@@ -1,4 +1,4 @@
-package com.snehadatta.pocketdictionary.feature_dictionary.ui
+package com.snehadatta.pocketdictionary.feature_dictionary.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

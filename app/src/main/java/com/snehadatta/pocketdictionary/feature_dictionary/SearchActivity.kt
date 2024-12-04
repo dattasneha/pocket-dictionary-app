@@ -25,13 +25,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.snehadatta.pocketdictionary.feature_dictionary.presentation.WordInfoItem
 import com.snehadatta.pocketdictionary.feature_dictionary.presentation.WordInfoViewModel
-import com.snehadatta.pocketdictionary.feature_dictionary.ui.Shapes
+import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Green
+import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Shapes
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.PocketDictionaryTheme
+import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.SkyBlue
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -85,12 +87,29 @@ class SearchActivity : ComponentActivity() {
                                     .padding(top = 16.dp)
                                     .padding(horizontal = 16.dp)
                                     .clip(Shapes.large)
-                                    .border(1.dp, MaterialTheme.colors.primaryVariant, Shapes.large)
-                                    .shadow(1.dp, Shapes.large),
+                                    .border(1.dp, MaterialTheme.colors.primaryVariant, Shapes.large),
                                 placeholder = {
                                     androidx.compose.material.Text(text = "Search...")
                                 }
                             )
+
+                            Spacer(modifier = Modifier.height(52.dp))
+
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 16.dp)
+                                    .clip(Shapes.large)
+                                    .border(4.dp, Green, Shapes.large)
+                            ) {
+                                Text(
+                                    text = "Enter a word ✍️",
+                                    modifier = Modifier.padding(top = 24.dp)
+                                        .fillMaxWidth()
+                                        .padding(32.dp)
+                                )
+                            }
+
                             Spacer(modifier = Modifier.height(16.dp))
                             LazyColumn(
                                 modifier = Modifier.fillMaxSize()

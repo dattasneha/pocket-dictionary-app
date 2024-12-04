@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.sp
 import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.Definition
 import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.Meaning
 import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.WordInfo
-import com.snehadatta.pocketdictionary.feature_dictionary.ui.Green
-import com.snehadatta.pocketdictionary.feature_dictionary.ui.Peach
+import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Green
+import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Peach
 
 @Composable
 fun WordInfoItem(
@@ -69,7 +69,7 @@ fun WordInfoItem(
                 SectionTitle("Synonyms")
                 WordChips(
                     words = definition.synonyms,
-                    backgroundColor = Peach
+                    backgroundColor = Green
                 )
                 SectionTitle("Antonyms")
                 WordChips(
