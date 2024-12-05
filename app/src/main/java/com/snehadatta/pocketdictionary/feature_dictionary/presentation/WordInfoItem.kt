@@ -1,9 +1,12 @@
 package com.snehadatta.pocketdictionary.feature_dictionary.presentation
 
+import android.hardware.lights.Light
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,8 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
-import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,8 +27,12 @@ import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.Definitio
 import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.Meaning
 import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.WordInfo
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Green
+import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.LightGreen
+import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Orange
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Peach
+import java.util.concurrent.Flow
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun WordInfoItem(
     wordInfo: WordInfo,
@@ -65,20 +71,37 @@ fun WordInfoItem(
                     )
                     Text(text = "${example}")
                 }
-
-                SectionTitle("Synonyms")
-                WordChips(
-                    words = definition.synonyms,
-                    backgroundColor = Green
-                )
-                SectionTitle("Antonyms")
-                WordChips(
-                    words = definition.antonyms,
-                    backgroundColor = Peach
-                )
-
                 Spacer(modifier = Modifier.height(8.dp))
+            }
+            SectionTitle("Synonyms")
+            Box {
+                FlowRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(LightGreen),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    WordChips(
+                        words = meaning.synonyms,
+                        backgroundColor = Green
+                    )
+                }
+            }
 
+            SectionTitle("Antonyms")
+            Box {
+
+            }
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Peach),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                WordChips(
+                    words = meaning.antonyms,
+                    backgroundColor = Orange
+                )
             }
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -111,6 +134,7 @@ fun WordChips(words: List<String>, backgroundColor: Color) {
                 contentAlignment = Alignment.Center
             ) {
                 Text(
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                     text = word,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,

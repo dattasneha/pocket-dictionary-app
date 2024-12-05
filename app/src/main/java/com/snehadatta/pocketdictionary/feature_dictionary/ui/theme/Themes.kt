@@ -35,6 +35,7 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+
 @Composable
 fun PocketDictionaryTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

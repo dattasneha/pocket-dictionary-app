@@ -14,11 +14,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldColors
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
@@ -30,10 +33,16 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.snehadatta.pocketdictionary.feature_dictionary.presentation.WordInfoItem
 import com.snehadatta.pocketdictionary.feature_dictionary.presentation.WordInfoViewModel
+import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Blue
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Green
+import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Orange
+import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Peach
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Shapes
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.PocketDictionaryTheme
+import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Purple200
+import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Purple500
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.SkyBlue
+import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.White
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -66,7 +75,6 @@ class SearchActivity : ComponentActivity() {
                 ) {
                     Box(
                         modifier = Modifier
-                            .background(MaterialTheme.colors.background)
                     ) {
                         Column(
                             modifier = Modifier.padding(top = 24.dp)
@@ -87,28 +95,15 @@ class SearchActivity : ComponentActivity() {
                                     .padding(top = 16.dp)
                                     .padding(horizontal = 16.dp)
                                     .clip(Shapes.large)
-                                    .border(1.dp, MaterialTheme.colors.primaryVariant, Shapes.large),
+                                    .border(2.dp, Purple500, Shapes.large),
                                 placeholder = {
                                     androidx.compose.material.Text(text = "Search...")
-                                }
+                                },
+                                colors = TextFieldDefaults.textFieldColors(
+                                    backgroundColor = Purple200
+                                )
                             )
 
-                            Spacer(modifier = Modifier.height(52.dp))
-
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 16.dp)
-                                    .clip(Shapes.large)
-                                    .border(4.dp, Green, Shapes.large)
-                            ) {
-                                Text(
-                                    text = "Enter a word ✍️",
-                                    modifier = Modifier.padding(top = 24.dp)
-                                        .fillMaxWidth()
-                                        .padding(32.dp)
-                                )
-                            }
 
                             Spacer(modifier = Modifier.height(16.dp))
                             LazyColumn(
