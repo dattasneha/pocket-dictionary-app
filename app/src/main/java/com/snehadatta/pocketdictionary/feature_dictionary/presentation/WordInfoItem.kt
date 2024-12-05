@@ -32,7 +32,6 @@ import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Orange
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Peach
 import java.util.concurrent.Flow
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun WordInfoItem(
     wordInfo: WordInfo,
@@ -73,39 +72,37 @@ fun WordInfoItem(
                 }
                 Spacer(modifier = Modifier.height(8.dp))
             }
-            SectionTitle("Synonyms")
-            Box {
-                FlowRow(
+
+            if(!meaning.synonyms.isNullOrEmpty()) {
+                SectionTitle("Synonyms")
+                Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(LightGreen),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        .background(LightGreen, shape = RoundedCornerShape(8.dp))
                 ) {
                     WordChips(
                         words = meaning.synonyms,
-                        backgroundColor = Green
+                        backgroundColor = Green,
                     )
                 }
             }
 
-            SectionTitle("Antonyms")
-            Box {
+            if(!meaning.antonyms.isNullOrEmpty()) {
+                SectionTitle("Antonyms")
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Peach, shape = RoundedCornerShape(8.dp))
+                ) {
+                    WordChips(
+                        words = meaning.antonyms,
+                        backgroundColor = Orange
+                    )
+                }
+            }
 
-            }
-            FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Peach),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                WordChips(
-                    words = meaning.antonyms,
-                    backgroundColor = Orange
-                )
-            }
             Spacer(modifier = Modifier.height(16.dp))
         }
-
 
     }
 }
@@ -120,11 +117,14 @@ fun SectionTitle(title: String) {
     )
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun WordChips(words: List<String>, backgroundColor: Color) {
-    Row(
+    FlowRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.fillMaxWidth()
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier
+            .fillMaxWidth().padding(8.dp)
     ) {
         words.forEach { word ->
             Box(
