@@ -161,7 +161,6 @@ fun WordInfoItem(
                 }
             }
         }
-        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
