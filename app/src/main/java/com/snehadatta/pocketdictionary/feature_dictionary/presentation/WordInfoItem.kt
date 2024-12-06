@@ -49,6 +49,10 @@ fun WordInfoItem(
     wordInfo: WordInfo,
     modifier: Modifier = Modifier
 ) {
+    val itemPosition = remember {
+        mutableStateOf(0)
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -63,89 +67,112 @@ fun WordInfoItem(
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
-                modifier = Modifier.padding(bottom = 8.dp)
+                modifier = Modifier.padding(bottom = 8.dp, start = 16.dp, top = 8.dp)
             )
-
-            val itemPosition = remember {
-                mutableStateOf(0)
-            }
 
             wordInfo.meaning[itemPosition.value].let {
                 Text(
                     text = wordInfo.phonetic,
                     fontWeight = FontWeight.Light,
+                    modifier = Modifier.padding(start = 16.dp)
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(text = wordInfo.sourceUrls[0],modifier = Modifier.padding(bottom = 8.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-            DropDownDemo(wordInfo,itemPosition)
+            Text(
+                modifier = Modifier.padding(start = 16.dp, bottom = 8.dp),
+                text = wordInfo.sourceUrls[0]
+            )
+
+            DropDownDemo(wordInfo, itemPosition)
 
             wordInfo.meaning[itemPosition.value].let { meaning ->
                 meaning.definition.forEachIndexed { i, definition ->
-                    Column (
+                    Column(
                         modifier = modifier
                             .fillMaxSize()
+                            .padding(start = 16.dp, end = 16.dp)
                             .background(White, shape = RoundedCornerShape(8.dp))
                     ) {
-                        Text(text = "${i + 1}. ${definition.definition}")
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(4.dp),
+                            text = "${i + 1}. ${definition.definition}"
+                        )
                     }
 
                     Spacer(modifier = Modifier.height(8.dp))
 
                     definition.example?.let { example ->
-                        Column (
+                        Column(
                             modifier = modifier
                                 .fillMaxSize()
+                                .padding(start = 16.dp, end = 16.dp)
                                 .background(White, shape = RoundedCornerShape(8.dp))
                         ) {
                             Text(
                                 text = "e.g",
                                 fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(bottom = 4.dp)
                             )
-                            Text(text = "${example}")
+                            Text(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(4.dp),
+                                text = "${example}"
+                            )
                         }
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                 }
+            }
         }
+        Spacer(modifier = Modifier.height(16.dp))
 
         wordInfo.meaning[itemPosition.value].let { meaning ->
             if(!meaning.synonyms.isNullOrEmpty()) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
                         .background(LightGreen, shape = RoundedCornerShape(8.dp))
                 ) {
-                    SectionTitle("Synonyms")
-                    WordChips(
-                        words = meaning.synonyms,
-                        backgroundColor = Green,
-                    )
+                    Column (
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    ) {
+                        SectionTitle("Synonyms")
+                        WordChips(
+                            words = meaning.synonyms,
+                            backgroundColor = Green,
+                        )
+                    }
                 }
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             if(!meaning.antonyms.isNullOrEmpty()) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
                         .background(Peach, shape = RoundedCornerShape(8.dp))
                 ) {
-                    SectionTitle("Antonyms")
-                    WordChips(
-                        words = meaning.antonyms,
-                        backgroundColor = Orange
-                    )
+                    Column (
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    ) {
+                        SectionTitle("Antonyms")
+                        WordChips(
+                            words = meaning.antonyms,
+                            backgroundColor = Orange
+                        )
+                    }
+
                 }
             }
         }
-            Spacer(modifier = Modifier.height(16.dp))
-        }
-
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
@@ -160,16 +187,15 @@ fun DropDownDemo(
     }
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
-                .background(Purple200)
+                .background(Purple200, shape = RoundedCornerShape(8.dp))
         ) {
             Row(
                 horizontalArrangement = Arrangement.Center,
@@ -183,6 +209,7 @@ fun DropDownDemo(
                     modifier = Modifier.padding(8.dp))
 
                 Image(
+                    modifier = Modifier.fillMaxWidth(),
                     painter = painterResource(id = R.drawable.baseline_arrow_drop_down_24),
                     contentDescription = "DropDown Icon",
                 )
@@ -213,7 +240,7 @@ fun SectionTitle(title: String) {
         text = title,
         fontSize = 20.sp,
         fontWeight = FontWeight.SemiBold,
-        modifier = Modifier.padding(bottom = 8.dp)
+        modifier = Modifier.padding(top = 8.dp, start = 16.dp)
     )
 }
 

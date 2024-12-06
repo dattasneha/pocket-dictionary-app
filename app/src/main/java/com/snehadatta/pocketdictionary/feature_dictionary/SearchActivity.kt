@@ -29,11 +29,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.snehadatta.pocketdictionary.feature_dictionary.presentation.WordInfoItem
 import com.snehadatta.pocketdictionary.feature_dictionary.presentation.WordInfoViewModel
-import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Blue
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Green
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Orange
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Peach
@@ -83,6 +83,7 @@ class SearchActivity : ComponentActivity() {
                         ) {
                             Text(
                                 text = "Enter a word ✍️",
+                                fontWeight = FontWeight.Medium,
                                 modifier = Modifier.padding(top = 24.dp)
                                     .fillMaxWidth()
                                     .padding(horizontal = 16.dp)
@@ -103,7 +104,6 @@ class SearchActivity : ComponentActivity() {
                                     backgroundColor = Purple200
                                 )
                             )
-
 
                             Spacer(modifier = Modifier.height(16.dp))
                             LazyColumn(
