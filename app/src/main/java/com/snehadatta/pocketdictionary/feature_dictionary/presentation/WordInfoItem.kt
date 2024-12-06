@@ -1,7 +1,9 @@
 package com.snehadatta.pocketdictionary.feature_dictionary.presentation
 
 import android.hardware.lights.Light
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,15 +16,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.snehadatta.pocketdictionary.R
 import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.Definition
 import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.Meaning
 import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.WordInfo
@@ -74,12 +82,12 @@ fun WordInfoItem(
             }
 
             if(!meaning.synonyms.isNullOrEmpty()) {
-                SectionTitle("Synonyms")
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(LightGreen, shape = RoundedCornerShape(8.dp))
                 ) {
+                    SectionTitle("Synonyms")
                     WordChips(
                         words = meaning.synonyms,
                         backgroundColor = Green,
@@ -88,12 +96,12 @@ fun WordInfoItem(
             }
 
             if(!meaning.antonyms.isNullOrEmpty()) {
-                SectionTitle("Antonyms")
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(Peach, shape = RoundedCornerShape(8.dp))
                 ) {
+                    SectionTitle("Antonyms")
                     WordChips(
                         words = meaning.antonyms,
                         backgroundColor = Orange
@@ -102,6 +110,61 @@ fun WordInfoItem(
             }
 
             Spacer(modifier = Modifier.height(16.dp))
+        }
+
+    }
+}
+
+@Composable
+fun DropDownDemo(
+    wordInfo: WordInfo,
+    modifier: Modifier = Modifier
+) {
+
+    val isDropDownExpanded = remember {
+        mutableStateOf(false)
+    }
+
+    val itemPosition = remember {
+        mutableStateOf(0)
+    }
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+
+        Box {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.clickable {
+                    isDropDownExpanded.value = true
+                }
+            ) {
+                Text(text = wordInfo.meaning[itemPosition.value].partOfSpeech)
+
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_arrow_drop_down_24),
+                    contentDescription = "DropDown Icon"
+                )
+            }
+            DropdownMenu(
+                expanded = isDropDownExpanded.value,
+                onDismissRequest = {
+                    isDropDownExpanded.value = false
+                }) {
+                wordInfo.meaning.forEachIndexed { index, meaning ->
+                    DropdownMenuItem(text = {
+                        Text(text = meaning.partOfSpeech)
+                    },
+                        onClick = {
+                            isDropDownExpanded.value = false
+                            itemPosition.value = index
+                        })
+                }
+            }
         }
 
     }
@@ -121,10 +184,10 @@ fun SectionTitle(title: String) {
 @Composable
 fun WordChips(words: List<String>, backgroundColor: Color) {
     FlowRow(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier = Modifier
-            .fillMaxWidth().padding(8.dp)
+            .fillMaxWidth().padding(12.dp)
     ) {
         words.forEach { word ->
             Box(
@@ -134,7 +197,7 @@ fun WordChips(words: List<String>, backgroundColor: Color) {
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp),
                     text = word,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,
