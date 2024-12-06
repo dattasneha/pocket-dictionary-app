@@ -20,6 +20,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -35,9 +36,12 @@ import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.Definitio
 import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.Meaning
 import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.WordInfo
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Green
+import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Lavender
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.LightGreen
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Orange
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Peach
+import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Purple200
+import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.White
 import java.util.concurrent.Flow
 
 @Composable
@@ -48,43 +52,72 @@ fun WordInfoItem(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp)
     ) {
-        Text(
-            text = wordInfo.word,
-            fontSize = 32.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        Text(
-            text = wordInfo.phonetic,
-            fontWeight = FontWeight.Light,
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(text = wordInfo.sourceUrls[0],modifier = Modifier.padding(bottom = 8.dp))
+        Column (
+            modifier = modifier
+                .fillMaxSize()
+                .background(Lavender, shape = RoundedCornerShape(8.dp))
+        ) {
+            Text(
+                text = wordInfo.word,
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
 
-        wordInfo.meaning.forEach { meaning ->
-            Text(text = meaning.partOfSpeech, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-            meaning.definition.forEachIndexed { i, definition ->
-                Text(text = "${i + 1}. ${definition.definition}")
-                Spacer(modifier = Modifier.height(8.dp))
-
-                definition.example?.let { example ->
-                    Text(
-                        text = "e.g",
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(bottom = 4.dp)
-                    )
-                    Text(text = "${example}")
-                }
-                Spacer(modifier = Modifier.height(8.dp))
+            val itemPosition = remember {
+                mutableStateOf(0)
             }
 
+            wordInfo.meaning[itemPosition.value].let {
+                Text(
+                    text = wordInfo.phonetic,
+                    fontWeight = FontWeight.Light,
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text = wordInfo.sourceUrls[0],modifier = Modifier.padding(bottom = 8.dp))
+
+            DropDownDemo(wordInfo,itemPosition)
+
+            wordInfo.meaning[itemPosition.value].let { meaning ->
+                meaning.definition.forEachIndexed { i, definition ->
+                    Column (
+                        modifier = modifier
+                            .fillMaxSize()
+                            .background(White, shape = RoundedCornerShape(8.dp))
+                    ) {
+                        Text(text = "${i + 1}. ${definition.definition}")
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    definition.example?.let { example ->
+                        Column (
+                            modifier = modifier
+                                .fillMaxSize()
+                                .background(White, shape = RoundedCornerShape(8.dp))
+                        ) {
+                            Text(
+                                text = "e.g",
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(bottom = 4.dp)
+                            )
+                            Text(text = "${example}")
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
+        }
+
+        wordInfo.meaning[itemPosition.value].let { meaning ->
             if(!meaning.synonyms.isNullOrEmpty()) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .padding(16.dp)
                         .background(LightGreen, shape = RoundedCornerShape(8.dp))
                 ) {
                     SectionTitle("Synonyms")
@@ -99,6 +132,7 @@ fun WordInfoItem(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .padding(16.dp)
                         .background(Peach, shape = RoundedCornerShape(8.dp))
                 ) {
                     SectionTitle("Antonyms")
@@ -108,7 +142,7 @@ fun WordInfoItem(
                     )
                 }
             }
-
+        }
             Spacer(modifier = Modifier.height(16.dp))
         }
 
@@ -118,15 +152,11 @@ fun WordInfoItem(
 @Composable
 fun DropDownDemo(
     wordInfo: WordInfo,
-    modifier: Modifier = Modifier
+    itemPosition: MutableState<Int>
 ) {
 
     val isDropDownExpanded = remember {
         mutableStateOf(false)
-    }
-
-    val itemPosition = remember {
-        mutableStateOf(0)
     }
 
     Column(
@@ -135,7 +165,12 @@ fun DropDownDemo(
         verticalArrangement = Arrangement.Center
     ) {
 
-        Box {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+                .background(Purple200)
+        ) {
             Row(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
@@ -143,11 +178,13 @@ fun DropDownDemo(
                     isDropDownExpanded.value = true
                 }
             ) {
-                Text(text = wordInfo.meaning[itemPosition.value].partOfSpeech)
+                Text(
+                    text = wordInfo.meaning[itemPosition.value].partOfSpeech,
+                    modifier = Modifier.padding(8.dp))
 
                 Image(
                     painter = painterResource(id = R.drawable.baseline_arrow_drop_down_24),
-                    contentDescription = "DropDown Icon"
+                    contentDescription = "DropDown Icon",
                 )
             }
             DropdownMenu(
