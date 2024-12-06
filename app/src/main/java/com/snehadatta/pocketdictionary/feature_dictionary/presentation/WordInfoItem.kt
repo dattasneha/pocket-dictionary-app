@@ -143,9 +143,8 @@ fun WordInfoItem(
                         backgroundColor = Green,
                     )
                 }
+                Spacer(modifier = Modifier.height(16.dp))
             }
-
-            Spacer(modifier = Modifier.height(16.dp))
 
             if(!meaning.antonyms.isNullOrEmpty()) {
                 Column (
@@ -159,6 +158,7 @@ fun WordInfoItem(
                         backgroundColor = Orange
                     )
                 }
+                Spacer(modifier = Modifier.height(16.dp))
             }
         }
     }
