@@ -132,43 +132,32 @@ fun WordInfoItem(
 
         wordInfo.meaning[itemPosition.value].let { meaning ->
             if(!meaning.synonyms.isNullOrEmpty()) {
-                Box(
+                Column (
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(LightGreen, shape = RoundedCornerShape(8.dp))
                 ) {
-                    Column (
-                        modifier = Modifier
-                            .fillMaxWidth()
-                    ) {
-                        SectionTitle("Synonyms")
-                        WordChips(
-                            words = meaning.synonyms,
-                            backgroundColor = Green,
-                        )
-                    }
+                    SectionTitle("Synonyms")
+                    WordChips(
+                        words = meaning.synonyms,
+                        backgroundColor = Green,
+                    )
                 }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             if(!meaning.antonyms.isNullOrEmpty()) {
-                Box(
+                Column (
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(Peach, shape = RoundedCornerShape(8.dp))
                 ) {
-                    Column (
-                        modifier = Modifier
-                            .fillMaxWidth()
-                    ) {
-                        SectionTitle("Antonyms")
-                        WordChips(
-                            words = meaning.antonyms,
-                            backgroundColor = Orange
-                        )
-                    }
-
+                    SectionTitle("Antonyms")
+                    WordChips(
+                        words = meaning.antonyms,
+                        backgroundColor = Orange
+                    )
                 }
             }
         }
