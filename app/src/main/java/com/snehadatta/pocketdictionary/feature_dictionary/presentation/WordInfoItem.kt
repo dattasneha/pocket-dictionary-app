@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -26,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -37,6 +39,7 @@ import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.Meaning
 import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.WordInfo
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Green
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Lavender
+import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.LavenderDark
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.LightGreen
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Orange
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Peach
@@ -115,6 +118,7 @@ fun WordInfoItem(
                             Text(
                                 text = "e.g",
                                 fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(start = 4.dp)
                             )
                             Text(
                                 modifier = Modifier
@@ -183,27 +187,30 @@ fun DropDownDemo(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
-                .background(Purple200, shape = RoundedCornerShape(8.dp))
+                .background(LavenderDark, shape = RoundedCornerShape(8.dp))
         ) {
             Row(
-                horizontalArrangement = Arrangement.Center,
+                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
+                    .fillMaxWidth()
                     .clickable {
                         isDropDownExpanded.value = true
                     }
             ) {
                 Text(
                     text = wordInfo.meaning[itemPosition.value].partOfSpeech,
-                    modifier = Modifier.padding(8.dp))
+                    modifier = Modifier.padding(start = 12.dp, top = 12.dp, bottom = 12.dp).weight(0.6f))
 
                 Image(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.size(20.dp).padding(end = 12.dp, top = 12.dp, bottom = 12.dp),
                     painter = painterResource(id = R.drawable.baseline_arrow_drop_down_24),
                     contentDescription = "DropDown Icon",
                 )
             }
             DropdownMenu(
+                modifier = Modifier
+                    .fillMaxWidth().padding(16.dp),
                 expanded = isDropDownExpanded.value,
                 onDismissRequest = {
                     isDropDownExpanded.value = false
