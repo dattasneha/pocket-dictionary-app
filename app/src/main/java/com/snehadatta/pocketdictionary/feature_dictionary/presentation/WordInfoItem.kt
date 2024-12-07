@@ -188,9 +188,10 @@ fun DropDownDemo(
             Row(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.clickable {
-                    isDropDownExpanded.value = true
-                }
+                modifier = Modifier
+                    .clickable {
+                        isDropDownExpanded.value = true
+                    }
             ) {
                 Text(
                     text = wordInfo.meaning[itemPosition.value].partOfSpeech,
