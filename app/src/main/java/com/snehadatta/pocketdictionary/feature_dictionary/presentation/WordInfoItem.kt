@@ -50,6 +50,7 @@ import java.util.concurrent.Flow
 @Composable
 fun WordInfoItem(
     wordInfo: WordInfo,
+    viewModel: WordInfoViewModel,
     modifier: Modifier = Modifier
 ) {
     val itemPosition = remember {
@@ -145,7 +146,9 @@ fun WordInfoItem(
                     WordChips(
                         words = meaning.synonyms,
                         backgroundColor = Green,
-                    )
+                    ) { clickword ->
+                        viewModel.onSearch(clickword)
+                    }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
             }
@@ -160,13 +163,16 @@ fun WordInfoItem(
                     WordChips(
                         words = meaning.antonyms,
                         backgroundColor = Orange
-                    )
+                    ) { clickword ->
+                        viewModel.onSearch(clickword)
+                    }
+                    }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
     }
-}
+
 
 @Composable
 fun DropDownDemo(
@@ -179,13 +185,12 @@ fun DropDownDemo(
     }
 
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Box(
             modifier = Modifier
-                .fillMaxWidth()
                 .padding(16.dp)
                 .background(LavenderDark, shape = RoundedCornerShape(8.dp))
         ) {
@@ -200,17 +205,19 @@ fun DropDownDemo(
             ) {
                 Text(
                     text = wordInfo.meaning[itemPosition.value].partOfSpeech,
-                    modifier = Modifier.padding(start = 12.dp, top = 12.dp, bottom = 12.dp).weight(0.6f))
+                    modifier = Modifier
+                        .padding(start = 12.dp, top = 12.dp, bottom = 12.dp)
+                )
 
                 Image(
-                    modifier = Modifier.size(20.dp).padding(end = 12.dp, top = 12.dp, bottom = 12.dp),
+                    modifier = Modifier.padding(end = 12.dp),
                     painter = painterResource(id = R.drawable.baseline_arrow_drop_down_24),
                     contentDescription = "DropDown Icon",
                 )
             }
             DropdownMenu(
                 modifier = Modifier
-                    .fillMaxWidth().padding(16.dp),
+                    .fillMaxWidth(0.755f),
                 expanded = isDropDownExpanded.value,
                 onDismissRequest = {
                     isDropDownExpanded.value = false
@@ -242,7 +249,7 @@ fun SectionTitle(title: String) {
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun WordChips(words: List<String>, backgroundColor: Color) {
+fun WordChips(words: List<String>, backgroundColor: Color,onChipClick: (String) -> Unit ) {
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -253,6 +260,7 @@ fun WordChips(words: List<String>, backgroundColor: Color) {
             Box(
                 modifier = Modifier
                     .background(backgroundColor, shape = RoundedCornerShape(16.dp))
+                    .clickable{onChipClick(word)}
                     .padding(horizontal = 16.dp, vertical = 8.dp),
                 contentAlignment = Alignment.Center
             ) {
@@ -265,5 +273,6 @@ fun WordChips(words: List<String>, backgroundColor: Color) {
                 )
             }
         }
+
     }
 }

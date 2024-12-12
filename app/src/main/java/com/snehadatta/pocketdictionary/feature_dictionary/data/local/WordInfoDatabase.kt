@@ -11,6 +11,5 @@ import com.snehadatta.pocketdictionary.feature_dictionary.data.local.entities.Wo
 )
 @TypeConverters(Converters::class)
 abstract class WordInfoDatabase:RoomDatabase() {
-
     abstract val dao: WordInfoDao
 }
