@@ -1,5 +1,8 @@
 package com.snehadatta.pocketdictionary.feature_dictionary.presentation
 
+import android.app.SearchManager
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,13 +28,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.snehadatta.pocketdictionary.R
 import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.WordInfo
+import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Blue
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Green
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Lavender
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.LavenderDark
@@ -39,6 +46,7 @@ import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.LightGreen
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Orange
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Peach
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.White
+import kotlinx.coroutines.delay
 
 @Composable
 fun WordInfoItem(
@@ -76,10 +84,22 @@ fun WordInfoItem(
             }
 
             Spacer(modifier = Modifier.height(8.dp))
-
+            val urlText = wordInfo.sourceUrls[0]
+            val context = LocalContext.current
             Text(
-                modifier = Modifier.padding(start = 16.dp, bottom = 8.dp),
-                text = wordInfo.sourceUrls[0]
+                text = urlText,
+                style = TextStyle(
+                    color = Blue,
+                    textDecoration = TextDecoration.Underline
+                ),
+                modifier = Modifier
+                    .clickable {
+                        val intent = Intent(Intent.ACTION_WEB_SEARCH).apply {
+                            putExtra(SearchManager.QUERY, urlText)
+                        }
+                        context.startActivity(intent)
+                    }
+                    .padding(start = 16.dp, bottom = 8.dp)
             )
 
             DropDownDemo(wordInfo, itemPosition)
@@ -253,7 +273,9 @@ fun WordChips(words: List<String>, backgroundColor: Color,onChipClick: (String) 
             Box(
                 modifier = Modifier
                     .background(backgroundColor, shape = RoundedCornerShape(16.dp))
-                    .clickable{onChipClick(word)}
+                    .clickable{
+                        onChipClick(word)
+                    }
                     .padding(horizontal = 16.dp, vertical = 8.dp),
                 contentAlignment = Alignment.Center
             ) {
