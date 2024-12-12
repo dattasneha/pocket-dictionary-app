@@ -63,6 +63,7 @@ class SearchActivity : ComponentActivity() {
                 val viewModel: WordInfoViewModel = hiltViewModel()
                 val state = viewModel.state.value
                 val scaffoldState = rememberScaffoldState()
+                var searchedWord = remember { viewModel._searchQuery }
 
                 LaunchedEffect(key1 = true) {
                     viewModel.eventFlow.collectLatest { event ->
@@ -87,7 +88,7 @@ class SearchActivity : ComponentActivity() {
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp)
                         ) {
-                            var searchedWord = remember { viewModel._searchQuery }
+
                             Text(
                                 text = "Enter a word ✍️",
                                 fontWeight = FontWeight.Medium,
