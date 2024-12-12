@@ -18,13 +18,19 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldColors
 import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -81,6 +87,7 @@ class SearchActivity : ComponentActivity() {
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp)
                         ) {
+                            var searchedWord = remember { viewModel._searchQuery }
                             Text(
                                 text = "Enter a word ✍️",
                                 fontWeight = FontWeight.Medium,
@@ -89,7 +96,7 @@ class SearchActivity : ComponentActivity() {
                                     .padding(horizontal = 16.dp)
                             )
                             TextField(
-                                value = viewModel.searchQuery.value,
+                                value = searchedWord.value,
                                 onValueChange = viewModel::onSearch,
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -100,24 +107,32 @@ class SearchActivity : ComponentActivity() {
                                 placeholder = {
                                     androidx.compose.material.Text(text = "Search...")
                                 },
+                                trailingIcon = {
+                                    if(!searchedWord.value.isNullOrEmpty()) {
+                                        IconButton(onClick = {searchedWord.value = ""}) {
+                                            Icon(Icons.Filled.Clear, contentDescription = "Clear text")
+                                        }
+                                    }
+                                },
                                 colors = TextFieldDefaults.textFieldColors(
                                     backgroundColor = Purple200
                                 )
                             )
-
-                            Spacer(modifier = Modifier.height(16.dp))
-                            LazyColumn(
-                                modifier = Modifier.fillMaxSize()
-                                    .padding(start = 16.dp, end = 16.dp, bottom = 44.dp)
-                            ) {
-                                items(state.wordInfoItems.size) { i ->
-                                    val wordInfo = state.wordInfoItems[i]
-                                    if(i > 0) {
-                                        Spacer(modifier = Modifier.height(8.dp))
-                                    }
-                                    WordInfoItem( wordInfo = wordInfo,viewModel)
-                                    if(i < state.wordInfoItems.size - 1) {
-                                        Divider()
+                            if(!searchedWord.value.isNullOrEmpty()) {
+                                Spacer(modifier = Modifier.height(16.dp))
+                                LazyColumn(
+                                    modifier = Modifier.fillMaxSize()
+                                        .padding(start = 16.dp, end = 16.dp, bottom = 44.dp)
+                                ) {
+                                    items(state.wordInfoItems.size) { i ->
+                                        val wordInfo = state.wordInfoItems[i]
+                                        if(i > 0) {
+                                            Spacer(modifier = Modifier.height(8.dp))
+                                        }
+                                        WordInfoItem( wordInfo = wordInfo,viewModel)
+                                        if(i < state.wordInfoItems.size - 1) {
+                                            Divider()
+                                        }
                                     }
                                 }
                             }
