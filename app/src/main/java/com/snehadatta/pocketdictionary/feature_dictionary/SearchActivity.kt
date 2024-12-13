@@ -19,7 +19,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldColors
 import androidx.compose.material.TextFieldDefaults
@@ -78,7 +78,8 @@ class SearchActivity : ComponentActivity() {
                 }
 
                 androidx.compose.material.Scaffold(
-                    scaffoldState = scaffoldState
+                    scaffoldState = scaffoldState,
+                    backgroundColor = MaterialTheme.colorScheme.background
                 ) {
                     Box(
                         modifier = Modifier
