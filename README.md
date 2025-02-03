@@ -19,4 +19,7 @@ A modern dictionary app built using Kotlin and Jetpack Compose, designed for a s
 * API: Free Dictionary API
 * Media Playback: MediaPlayer library
 
+## 🚀 Download LInk
+[Download app] https://github.com/dattasneha/pocket-dictionary-app/releases/download/v1.0/Pocket.Dictionary.v1.0.apk
+
 
