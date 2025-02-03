@@ -3,11 +3,8 @@
 A modern dictionary app built using Kotlin and Jetpack Compose, designed for a seamless and interactive word search experience. Built with Clean Architecture, ensuring scalabilit and maintainability.
 
 # 📍Screenshots
-<img src="https://github.com/user-attachments/assets/96561be3-0c4c-41e3-83db-6a39c33f15e7" width=400/>
-
-<img src="https://github.com/user-attachments/assets/189eedc0-fd74-4583-bb0d-47000da352d0" width=400/>
-
-<img src="https://github.com/user-attachments/assets/8e67db00-d4f2-4e5a-8ba6-ed532756749f" width=400/>
+<img src="https://github.com/user-attachments/assets/96561be3-0c4c-41e3-83db-6a39c33f15e7" width=300/> | <img src="https://github.com/user-attachments/assets/189eedc0-fd74-4583-bb0d-47000da352d0" width=300/> | <img src="https://github.com/user-attachments/assets/8e67db00-d4f2-4e5a-8ba6-ed532756749f" width=300/> 
+--- | --- | ---
 
 
 
