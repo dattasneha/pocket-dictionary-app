@@ -69,6 +69,7 @@ class WordInfoViewModel @Inject constructor(
     }
 
 
+
     sealed class UIEvent {
         data class ShowSnackbar(val message: String): UIEvent()
     }

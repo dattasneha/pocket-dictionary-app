@@ -23,7 +23,8 @@ data class WordInfoDto(
             meaning = meaningDtos.map { it.toMeaning() },
             phonetic = phonetic,
             sourceUrl = sourceUrl,
-            word = word
+            word = word,
+            phonetics = phoneticDtos.map { it.toPhonetics() }
         )
     }
 

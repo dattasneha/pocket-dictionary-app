@@ -1,6 +1,8 @@
 package com.snehadatta.pocketdictionary.feature_dictionary
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -53,7 +55,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
-class SearchActivity : ComponentActivity() {
+class SearchActivity() : ComponentActivity() {
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -5,6 +5,7 @@ import androidx.room.TypeConverter
 import com.google.gson.reflect.TypeToken
 import com.snehadatta.pocketdictionary.feature_dictionary.data.util.JsonParser
 import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.Meaning
+import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.Phonetics
 import dagger.Provides
 
 @ProvidedTypeConverter
@@ -40,6 +41,22 @@ class Converters(
         return jsonParser.toJson(
             sourceUrl,
             object : TypeToken<ArrayList<String>>(){}.type
+        )?: "[]"
+    }
+
+    @TypeConverter
+    fun fromPhoneticsJson(json: String):List<Phonetics> {
+        return jsonParser.fromJson<ArrayList<Phonetics>>(
+            json,
+            object : TypeToken<ArrayList<Phonetics>>(){}.type
+        )?: emptyList()
+    }
+
+    @TypeConverter
+    fun toPhoneticsJson(meanings:List<Phonetics>):String {
+        return jsonParser.toJson(
+            meanings,
+            object : TypeToken<ArrayList<Phonetics>>(){}.type
         )?: "[]"
     }
 

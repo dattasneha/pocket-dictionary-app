@@ -1,8 +1,13 @@
 package com.snehadatta.pocketdictionary.feature_dictionary.presentation
 
 import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
+import android.media.AudioManager
+import android.media.MediaPlayer
+import android.media.MediaRecorder.AudioSource
 import android.net.Uri
+import android.provider.MediaStore.Audio
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -37,6 +42,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.snehadatta.pocketdictionary.R
+import com.snehadatta.pocketdictionary.core.util.AudioPlayer
 import com.snehadatta.pocketdictionary.feature_dictionary.domain.model.WordInfo
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Blue
 import com.snehadatta.pocketdictionary.feature_dictionary.ui.theme.Green
@@ -52,11 +58,15 @@ import kotlinx.coroutines.delay
 fun WordInfoItem(
     wordInfo: WordInfo,
     viewModel: WordInfoViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
+
     val itemPosition = remember {
         mutableStateOf(0)
     }
+
+    val audioPlayer = remember { AudioPlayer(context) }
 
     Column(
         modifier = modifier
@@ -67,13 +77,27 @@ fun WordInfoItem(
                 .fillMaxSize()
                 .background(Lavender, shape = RoundedCornerShape(8.dp))
         ) {
-            Text(
-                text = wordInfo.word,
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black,
-                modifier = Modifier.padding(bottom = 8.dp, start = 16.dp, top = 8.dp)
-            )
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    text = wordInfo.word,
+                    fontSize = 32.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black,
+                    modifier = Modifier.padding(bottom = 8.dp, start = 16.dp, top = 8.dp)
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.speaker),
+                    contentDescription = "Speaker",
+                    modifier = Modifier
+                        .padding(end = 12.dp)
+                        .clickable { audioPlayer.play(wordInfo.word) }
+                )
+            }
 
             wordInfo.meaning[itemPosition.value].let {
                 Text(
@@ -85,7 +109,6 @@ fun WordInfoItem(
 
             Spacer(modifier = Modifier.height(8.dp))
             val urlText = wordInfo.sourceUrls[0]
-            val context = LocalContext.current
             Text(
                 text = urlText,
                 style = TextStyle(
