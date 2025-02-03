@@ -95,7 +95,7 @@ fun WordInfoItem(
                     contentDescription = "Speaker",
                     modifier = Modifier
                         .padding(end = 12.dp)
-                        .clickable { audioPlayer.play(wordInfo.word) }
+                        .clickable { audioPlayer.play(wordInfo.phonetics[0].audio) }
                 )
             }
 

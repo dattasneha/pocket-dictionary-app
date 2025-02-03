@@ -7,6 +7,7 @@ class AudioPlayer(private  val context: Context) {
     private var mediaplayer: MediaPlayer ? = null
 
     fun play(url: String) {
+        stop()
         try {
             mediaplayer = MediaPlayer().apply {
                 setDataSource(url)
@@ -18,6 +19,11 @@ class AudioPlayer(private  val context: Context) {
             e.printStackTrace()
         }
 
+    }
+
+    private fun stop() {
+       mediaplayer?.release()
+       mediaplayer = null
     }
 
 
