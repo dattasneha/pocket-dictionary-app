@@ -100,7 +100,7 @@ class SearchActivity() : ComponentActivity() {
                                     .padding(horizontal = 16.dp)
                             )
                             TextField(
-                                value = searchedWord.value,
+                                value = searchedWord.value.trim(),
                                 onValueChange = viewModel::onSearch,
                                 modifier = Modifier
                                     .fillMaxWidth()
