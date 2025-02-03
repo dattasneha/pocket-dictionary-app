@@ -22,10 +22,10 @@ A modern dictionary app built using Kotlin and Jetpack Compose, designed for a s
 * Dependency Injection: Hilt
 * Networking: Retrofit
 * State Management: ViewModel
-* API: Free Dictionary API
+* API: [Free Dictionary API](https://dictionaryapi.dev/)
 * Media Playback: MediaPlayer library
 
 ## 🚀 Download Link
-[Download app] (https://github.com/dattasneha/pocket-dictionary-app/releases/download/v1.0/Pocket.Dictionary.v1.0.apk)
+[Download app](https://github.com/dattasneha/pocket-dictionary-app/releases/download/v1.0/Pocket.Dictionary.v1.0.apk)
 
 
