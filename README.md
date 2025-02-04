@@ -1,4 +1,4 @@
-# Dictionary App
+# Pocket Dictionary App
 
 A modern dictionary app built using Kotlin and Jetpack Compose, designed for a seamless and interactive word search experience. Built with Clean Architecture, ensuring scalabilit and maintainability.
 
